@@ -69,6 +69,10 @@ export interface ContextMethods {
     amount: string,
   ): Promise<Centra.CheckoutApi.SelectionResponse>
 
+  addBackInStockSubscription?(
+    data: Record<string, unknown>,
+  ): Promise<Centra.CheckoutApi.SelectionResponse>
+
   addNewsletterSubscription?(
     data: Record<string, unknown>,
   ): Promise<Centra.CheckoutApi.SelectionResponse>
@@ -525,6 +529,7 @@ export function CentraProvider(props: ProviderProps) {
       addGiftCertificate,
       addBackInStockSubscription,
       addCustomGiftCertificate,
+      addBackInStockSubscription,
       addNewsletterSubscription,
       addVoucher,
       decreaseCartItem,
@@ -558,6 +563,7 @@ export function CentraProvider(props: ProviderProps) {
       addGiftCertificate,
       addBackInStockSubscription,
       addCustomGiftCertificate,
+      addBackInStockSubscription,
       addNewsletterSubscription,
       addVoucher,
       decreaseCartItem,
