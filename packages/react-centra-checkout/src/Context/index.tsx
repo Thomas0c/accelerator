@@ -22,6 +22,8 @@ export interface ProviderProps {
   paymentReturnPage: string
   /** Receipt page to redirect to when Centra payment succeeds directly */
   receiptPage: string
+  /** Query params to append to receiptPage url */
+  receiptPageQueryParams?: string
   /**
     When the cookie used to store the Centra checkout token will expire, days as a number or a Date
     @defaultValue `365`
@@ -181,6 +183,7 @@ export function CentraProvider(props: ProviderProps) {
     paymentFailedPage,
     paymentReturnPage,
     receiptPage,
+    receiptPageQueryParams,
     tokenExpires = 365,
     tokenName = 'centra-checkout-token',
     tokenCookieOptions = null,
@@ -384,7 +387,7 @@ export function CentraProvider(props: ProviderProps) {
           break
         case 'success':
           // according to Centra docs – if action === 'success', user should be forwarded directly to the receipt page
-          window.location.href = `${receiptPage}/${response.token}`
+          window.location.href = `${receiptPage}/${response.token}${receiptPageQueryParams || ''}`
           break
         case 'javascript':
           if (response.code) {
@@ -399,7 +402,7 @@ export function CentraProvider(props: ProviderProps) {
       }
       return response
     },
-    [paymentFailedPage, paymentReturnPage, receiptPage],
+    [paymentFailedPage, paymentReturnPage, receiptPage, receiptPageQueryParams],
   )
 
   const addBackInStockSubscription = React.useCallback<
